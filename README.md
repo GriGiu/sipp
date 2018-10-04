@@ -1,5 +1,5 @@
-# grigiu/adminer
-sipp based debian strecht slim
+# grigiu/sipp
+SIPp based debian strecht slim
 
 [SIPp](http://http://sipp.sourceforge.net//)  is a free Open Source test tool / traffic generator for the SIP protocol. 
 This is a Sipp [Docker](https://www.docker.com/) image.
@@ -27,10 +27,14 @@ $ docker run -it grigiu/sipp -sn uas
 ```
 
 If you want to use custom scenarios you can use the Docker VOLUME argument to include your local files inside your Docker image.  
-The `-v /scenarios` is your local hosts working directory and `/scens` is the containers working directory.
+The `-v /scenarios` is your local hosts working directory and `/scenaios` is the containers working directory.
 
 ```
-$ docker run -it -v /scenarios:/scenarios -p 5060 grigiu/sipp -sf scen1.xml DEST_IP -s DEST_NUMBER
+$ docker run -it -v /scenarios:/scenarios -p 5060 grigiu/sipp -sf /scenarios/scen1.txt DEST_IP -s DEST_NUMBER
 ```
 
+To run SIPp in background 
+```
+$ docker run -d -v /scenarios:/scenarios -p 5060 grigiu/sipp -sn uas
+```
 
