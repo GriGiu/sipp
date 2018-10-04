@@ -4,6 +4,12 @@ sipp based debian strecht slim
 [SIPp](http://http://sipp.sourceforge.net//)  is a free Open Source test tool / traffic generator for the SIP protocol. 
 This is a Sipp [Docker](https://www.docker.com/) image.
 
+This SIPp is compiled with :
+* `TLS support'
+* `PCAP play support'
+* `SCTP support'
+
+
 This images is based on Debian Stretch-slim
 
 The recommended way to run this container looks like this:
