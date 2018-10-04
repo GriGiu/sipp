@@ -12,17 +12,6 @@ This SIPp is compiled with :
 
 This images is based on Debian Stretch-slim
 
-The recommended way to run this container looks like this:
-
-```bash
-$ docker run -it 5060:5060 -p 5070:5070 grigiu/sipp -sn uas
-```
-or docker-compose
-```bash
-$ docker-compose up -d
-```
-
-  
 This is a rather common setup following docker's conventions:
 
 * `-d` will run a detached instance in the background
