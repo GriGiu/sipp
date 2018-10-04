@@ -23,7 +23,7 @@ WORKDIR /build
 RUN  make install
 
 WORKDIR /sipp
-RUN mkdir /scens
+RUN mkdir /scenarios
 RUN mkdir /logs
 
 VOLUME /scenarios
