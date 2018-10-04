@@ -20,6 +20,7 @@ RUN mkdir /build /data && \
     
 #RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && make SHARED=0 CC='gcc -static' install
 RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream 
+WORKDIR /build
 RUN  make install
 
 #RUN mv /build/sipp /usr/bin
