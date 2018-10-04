@@ -15,7 +15,7 @@ This images is based on Debian Stretch-slim
 The recommended way to run this container looks like this:
 
 ```bash
-$ docker run -d -p 5060:5060 -p 5070:5070 grigiu/sipp
+$ docker run -it 5060:5060 -p 5070:5070 grigiu/sipp -sn uas
 ```
 or docker-compose
 ```bash
