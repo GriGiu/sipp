@@ -14,18 +14,11 @@ RUN apt-get update && apt-get install -y \
     curl \
     vim 
 
-#RUN mkdir /build /data && \
-#    cd /build && \
-#    curl -sqLkv https://github.com/SIPp/sipp/releases/download/v${SIPP_VERSION}/sipp-${SIPP_VERSION}.tar.gz | tar xvzf - --strip-components=1 && \
-#    ./build.sh --with-openssl --with-pcap --with-rtpstream --with-sctp && \
-#    mv sipp /usr/bin
-
 RUN mkdir /build /data && \
     cd /build && \
     curl -sqLkv https://github.com/SIPp/sipp/releases/download/v${SIPP_VERSION}/sipp-${SIPP_VERSION}.tar.gz | tar xvzf - --strip-components=1
     
 RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && make SHARED=0 CC='gcc -static' install
-#RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp  --with-rtpstream && make SHARED=0 CC='gcc -static' install
 
 RUN mv /build/sipp /usr/bin
 
