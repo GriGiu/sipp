@@ -8,7 +8,6 @@ ENV SIPP_VERSION 3.5.1
 RUN apt-get update && apt-get install -y \
     build-essential \
     libncurses5-dev \
-    libssl-dev \
     libssl1.0-dev \
     libsctp-dev \
     libpcap-dev \
