@@ -4,18 +4,14 @@ MAINTAINER Gri Giu <grigiu@gmail.com>
 
 ENV SIPP_VERSION 3.5.1
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     build-essential \
     libncurses5-dev \
-    curl \
-    automake \
-    ncurses-dev \
     libssl-dev \
     libsctp-dev \
     libpcap-dev \
-    openssl && \
-    rm -rf /var/lib/apt/lists/*
+    curl \
+    vim 
 
 #RUN mkdir /build /data && \
 #    cd /build && \
@@ -25,9 +21,11 @@ RUN apt-get update && \
 
 RUN mkdir /build /data && \
     cd /build && \
-    curl -sqLkv https://github.com/SIPp/sipp/releases/download/v${SIPP_VERSION}/sipp-${SIPP_VERSION}.tar.gz | tar xvzf - --strip-components=1 && \
-    ./build.sh --with-openssl --with-pcap --with-rtpstream --with-sctp && \
-    mv sipp /usr/bin
+    curl -sqLkv https://github.com/SIPp/sipp/releases/download/v${SIPP_VERSION}/sipp-${SIPP_VERSION}.tar.gz | tar xvzf - --strip-components=1 && 
+    
+RUN ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && make SHARED=0 CC='gcc -static' install
+
+RUN mv sipp /usr/bin
 
 
 WORKDIR /
