@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libncurses5-dev \
     libssl-dev \
+    libssl1.0-dev \
     libsctp-dev \
     libpcap-dev \
     curl \
@@ -24,8 +25,8 @@ RUN mkdir /build /data && \
     cd /build && \
     curl -sqLkv https://github.com/SIPp/sipp/releases/download/v${SIPP_VERSION}/sipp-${SIPP_VERSION}.tar.gz | tar xvzf - --strip-components=1
     
-#RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && make SHARED=0 CC='gcc -static' install
-RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp  --with-rtpstream && make SHARED=0 CC='gcc -static' install
+RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && make SHARED=0 CC='gcc -static' install
+#RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp  --with-rtpstream && make SHARED=0 CC='gcc -static' install
 
 RUN mv /build/sipp /usr/bin
 
