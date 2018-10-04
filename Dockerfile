@@ -2,7 +2,7 @@ FROM debian:stretch-slim
 
 MAINTAINER Gri Giu <grigiu@gmail.com>
 
-ENV SIPP_VERSION 3.5.2
+ENV SIPP_VERSION 3.5.1
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends build-essential curl automake ncurses-dev libssl-dev libsctp-dev libpcap-dev && \
