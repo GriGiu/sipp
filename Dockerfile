@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:stretch
 
 MAINTAINER Gri Giu <grigiu@gmail.com>
 
