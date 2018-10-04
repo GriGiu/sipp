@@ -35,6 +35,9 @@ $ docker run -it -v /scenarios:/scenarios -p 5060:5060 grigiu/sipp -sf /scenario
 
 To run SIPp in background 
 ```
-$ docker run -d -v /scenarios:/scenarios -p 5060:5060 grigiu/sipp -sn uas
+$ docker run --name sipuas -d -v /scenarios:/scenarios -p 5060:5060 grigiu/sipp -sn uas
+$ docker exec -it sipuas bash
+$ sipp -sn uas
+
 ```
 
