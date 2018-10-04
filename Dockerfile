@@ -2,6 +2,7 @@ FROM debian:stretch-slim
 
 MAINTAINER Gri Giu <grigiu@gmail.com>
 
+ENV DEBIAN_FRONTEND noninteractive 
 ENV SIPP_VERSION 3.5.1
 
 RUN apt-get update && apt-get install -y \
@@ -21,7 +22,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir /build /data && \
     cd /build && \
-    curl -sqLkv https://github.com/SIPp/sipp/releases/download/v${SIPP_VERSION}/sipp-${SIPP_VERSION}.tar.gz | tar xvzf - --strip-components=1 && 
+    curl -sqLkv https://github.com/SIPp/sipp/releases/download/v${SIPP_VERSION}/sipp-${SIPP_VERSION}.tar.gz | tar xvzf - --strip-components=1
     
 RUN ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && make SHARED=0 CC='gcc -static' install
 
