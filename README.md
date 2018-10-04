@@ -5,9 +5,9 @@ sipp based debian strecht slim
 This is a Sipp [Docker](https://www.docker.com/) image.
 
 This SIPp is compiled with :
-* `TLS support'
-* `PCAP play support'
-* `SCTP support'
+* TLS support
+* PCAP play support
+* SCTP support
 
 
 This images is based on Debian Stretch-slim
