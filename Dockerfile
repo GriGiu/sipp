@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:stretch-slim
 
 MAINTAINER Gri Giu <grigiu@gmail.com>
 
@@ -24,7 +24,8 @@ RUN mkdir /build /data && \
     cd /build && \
     curl -sqLkv https://github.com/SIPp/sipp/releases/download/v${SIPP_VERSION}/sipp-${SIPP_VERSION}.tar.gz | tar xvzf - --strip-components=1
     
-RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && make SHARED=0 CC='gcc -static' install
+#RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream && make SHARED=0 CC='gcc -static' install
+RUN  cd  /build && ls -l && ./configure --with-pcap --with-sctp  --with-rtpstream && make SHARED=0 CC='gcc -static' install
 
 RUN mv sipp /usr/bin
 
