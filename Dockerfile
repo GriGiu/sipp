@@ -14,4 +14,13 @@ RUN mkdir /build /data && \
     ./build.sh --with-openssl --with-pcap --with-rtpstream --with-sctp && \
     mv sipp /usr/bin
 
+WORKDIR /
+RUN mkdir /scens
+RUN mkdir /logs
+
+VOLUME /scens
+VOLUME /logs
+
+EXPOSE 5060-5070
+
 ENTRYPOINT [ "sipp" ]
