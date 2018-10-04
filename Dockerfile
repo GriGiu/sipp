@@ -32,4 +32,4 @@ VOLUME /logs
 
 EXPOSE 5060-5070
 
-CMD sipp
+ENTRYPOINT ["/usr/bin/sipp -sn uas"]
