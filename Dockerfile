@@ -5,7 +5,7 @@ MAINTAINER Gri Giu <grigiu@gmail.com>
 ENV SIPP_VERSION 3.5.2
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential curl automake ncurses-dev libssl-dev libsctp-dev libpcap-dev && \
+    apt-get install -y --no-install-recommends build-essential curl automake ncurses-dev libssl-dev libsctp-dev libpcap-dev libtool  && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /build /data && \
