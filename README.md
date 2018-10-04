@@ -29,3 +29,19 @@ This is a rather common setup following docker's conventions:
 * `-p {OutsidePort}:5060` will bind the webserver to the given outside port
 * `grigiu/sipp` the name of this docker image
 
+## Usage
+
+You can pass your SIPp arguments to the run command, example:
+
+```
+$ docker run -it grigiu/sipp -sn uas
+```
+
+If you want to use custom scenarios you can use the Docker VOLUME argument to include your local files inside your Docker image.  
+The `-v /scenarios` is your local hosts working directory and `/scens` is the containers working directory.
+
+```
+$ docker run -it -v /scenarios:/scenarios -p 5060 grigiu/sipp -sf scen1.xml DEST_IP -s DEST_NUMBER
+```
+
+
