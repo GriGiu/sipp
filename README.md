@@ -30,11 +30,11 @@ If you want to use custom scenarios you can use the Docker VOLUME argument to in
 The `-v /scenarios` is your local hosts working directory and `/scenaios` is the containers working directory.
 
 ```
-$ docker run -it -v /scenarios:/scenarios -p 5060 grigiu/sipp -sf /scenarios/scen1.txt DEST_IP -s DEST_NUMBER
+$ docker run -it -v /scenarios:/scenarios -p 5060:5060 grigiu/sipp -sf /scenarios/scen1.txt DEST_IP -s DEST_NUMBER
 ```
 
 To run SIPp in background 
 ```
-$ docker run -d -v /scenarios:/scenarios -p 5060 grigiu/sipp -sn uas
+$ docker run -d -v /scenarios:/scenarios -p 5060:5060 grigiu/sipp -sn uas
 ```
 
