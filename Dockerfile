@@ -3,7 +3,7 @@ FROM debian:stretch-slim
 MAINTAINER Gri Giu <grigiu@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive 
-ENV SIPP_VERSION 3.5.1
+ENV SIPP_VERSION 3.7.3
 
 RUN apt-get update && apt-get install -y \
     build-essential \
