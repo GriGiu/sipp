@@ -1,6 +1,7 @@
 # Usage (from within the git repo):
 #   git submodule update --init
 #   docker build -t sipp -f docker/Dockerfile .
+#
 
 FROM alpine:3.20 AS build
 
