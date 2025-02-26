@@ -10,7 +10,9 @@ RUN apk add --no-cache \
     ncurses-dev \
     openssl-dev \
     git \
-    pcre-dev
+    pcre-dev \
+    cmake \
+    bash
 
 # Clone SIPp repository and build latest version
 WORKDIR /usr/src
@@ -22,3 +24,4 @@ RUN git clone https://github.com/SIPp/sipp.git && \
 
 # Default command
 ENTRYPOINT ["sipp"]
+
