@@ -35,13 +35,7 @@ FROM scratch AS bin
 COPY --from=build /sipp/sipp /sipp
 
 FROM alpine:3.19
-RUN mkdir /scenarios
-RUN mkdir /logs
 
-VOLUME /scenarios
-VOLUME /logs
-
-EXPOSE 5060-5070
 CMD ["sipp"]
 COPY --from=build /sipp/sipp /usr/local/bin/sipp
 
