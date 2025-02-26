@@ -26,7 +26,7 @@ RUN apk add --no-cache \
 WORKDIR /sipp
 COPY CMakeLists.txt ./
 COPY src src
-COPY include include
+# COPY include include
 # COPY gtest gtest
 
 ARG DEBUG=''
