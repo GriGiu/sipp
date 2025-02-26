@@ -1,5 +1,5 @@
 # grigiu/sipp
-SIPp based debian strecht slim
+SIPp based Alpine
 
 [SIPp](http://http://sipp.sourceforge.net//)  is a free Open Source test tool / traffic generator for the SIP protocol. 
 This is a Sipp [Docker](https://www.docker.com/) image.
