@@ -1,5 +1,8 @@
 FROM alpine:latest
 
+# Maintainer
+LABEL maintainer="grillo.giuseppe@gmail.com"
+
 # Install dependencies
 RUN apk add --no-cache \
     build-base \
