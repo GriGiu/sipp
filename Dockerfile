@@ -27,7 +27,7 @@ WORKDIR /sipp
 COPY CMakeLists.txt ./
 COPY src src
 COPY include include
-COPY gtest gtest
+# COPY gtest gtest
 
 ARG DEBUG=''
 RUN --mount=type=bind,target=.git,source=.git \
