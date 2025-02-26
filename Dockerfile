@@ -1,52 +1,28 @@
-# Usage (from within the git repo):
-#   git submodule update --init
-#   docker build -t sipp -f docker/Dockerfile .
-#
+FROM alpine:latest
 
-FROM alpine:3.20 AS build
+# Aggiorna l'indice dei pacchetti
+RUN apk update
 
-ARG FULL=''
+# Installa le dipendenze per la compilazione di sipp
+RUN apk add --no-cache build-base libpcap-dev autoconf automake git
 
-RUN apk add --no-cache \
-  binutils \
-  cmake \
-  g++ \
-  gcc \
-  git \
-  gsl-dev \
-  gsl-static \
-  help2man \
-  libpcap-dev \
-  make \
-  ncurses-dev \
-  ncurses-static \
-  ninja \
-  ${FULL:+linux-headers lksctp-tools-dev lksctp-tools-static openssl-dev openssl-libs-static}
+# Crea una directory di lavoro all'interno del container
+WORKDIR /app
 
-WORKDIR /sipp
-COPY CMakeLists.txt ./
-COPY src src
-# COPY include include
-# COPY gtest gtest
+# Clona il repository git di sipp
+RUN git clone https://github.com/SIPp/sipp .
 
-ARG DEBUG=''
-RUN --mount=type=bind,target=.git,source=.git \
-  git config --global --add safe.directory /sipp && \
-  cmake . -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_STATIC=1 \
-    -DUSE_PCAP=1 \
-    -DUSE_GSL=1 \
-    ${DEBUG:+-DDEBUG=1} \
-    ${FULL:+-DUSE_SSL=1 -DUSE_SCTP=1} \
-  && ninja
-RUN help2man --output=sipp.1 -v -v --no-info \
-  --name='SIP testing tool and traffic generator' ./sipp
+# Genera gli script di configurazione (se necessario)
+RUN sh autogen.sh
 
-FROM scratch AS bin
-COPY --from=build /sipp/sipp /sipp/sipp.1 /sipp/version.h /
+# Compila sipp
+RUN make -j$(nproc)
 
-FROM alpine:3.20
-CMD ["sipp"]
-COPY --from=build /sipp/sipp /usr/local/bin/sipp
+# Installa sipp
+RUN make install
 
+# Pulisci le dipendenze di build per ridurre la dimensione dell'immagine (opzionale per questo esempio)
+# RUN apk del build-base libpcap-dev autoconf automake git
+
+# Comando di default per eseguire sipp (opzionale, l'utente può sovrascriverlo)
+# CMD ["sipp", "-h"]
