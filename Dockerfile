@@ -1,35 +1,40 @@
-FROM debian:bookworm-slim
+# Usage (from within the git repo):
+#   git submodule update --init
+#   docker build -t sipp -f docker/Dockerfile .
 
+FROM alpine:3.19 AS build
 MAINTAINER Gri Giu <grigiu@gmail.com>
-
-ENV DEBIAN_FRONTEND noninteractive
-ENV SIPP_VERSION 3.7.3
-
-RUN apt-get update --allow-releaseinfo-change && apt-get install -y \
-    build-essential \
-    libncurses5-dev \
-    libssl-dev \
-    libsctp-dev \
-    libpcap-dev \
-    curl \
-    vim \
-    pkg-config
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir /build /data && \
-    cd /build && \
-    curl -sqLkv https://github.com/SIPp/sipp/releases/download/v${SIPP_VERSION}/sipp-${SIPP_VERSION}.tar.gz && \
-    ls -l && \
-    tar xvzf sipp-${SIPP_VERSION}.tar.gz --strip-components=1 && \
-    ls -l
-
-RUN cd /build && ls -l && ./configure --with-pcap --with-sctp --with-openssl --with-rtpstream
-
-WORKDIR /build
-RUN make && make install
+RUN apk add --no-cache \
+  binutils \
+  cmake \
+  g++ \
+  gcc \
+  git \
+  gsl-dev \
+  gsl-static \
+  libpcap-dev \
+  make \
+  ncurses-dev \
+  ncurses-static \
+  ninja
 
 WORKDIR /sipp
+COPY CMakeLists.txt ./
+COPY src src
+COPY include include
+COPY gtest gtest
+RUN --mount=type=bind,target=.git,source=.git \
+  cmake . -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_STATIC=1 \
+    -DUSE_PCAP=1 \
+    -DUSE_GSL=1
+RUN ninja
+
+FROM scratch AS bin
+COPY --from=build /sipp/sipp /sipp
+
+FROM alpine:3.19
 RUN mkdir /scenarios
 RUN mkdir /logs
 
@@ -37,5 +42,6 @@ VOLUME /scenarios
 VOLUME /logs
 
 EXPOSE 5060-5070
+CMD ["sipp"]
+COPY --from=build /sipp/sipp /usr/local/bin/sipp
 
-ENTRYPOINT ["sipp"]
