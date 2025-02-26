@@ -12,16 +12,16 @@ RUN apk add --no-cache \
     git \
     pcre-dev \
     cmake \
-    bash
+    bash \
+    lksctp-tools-dev
 
 # Clone SIPp repository and build latest version
 WORKDIR /usr/src
 RUN git clone https://github.com/SIPp/sipp.git && \
     cd sipp && \
-    ./build.sh --with-pcap --with-sctp && \
+    ./build.sh --with-pcap && \
     mv sipp /usr/local/bin/ && \
     cd .. && rm -rf sipp
 
 # Default command
 ENTRYPOINT ["sipp"]
-
