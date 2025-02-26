@@ -18,7 +18,7 @@ RUN apk add --no-cache \
 WORKDIR /usr/src
 RUN git clone https://github.com/SIPp/sipp.git && \
     cd sipp && \
-    ./build.sh --with-pcap --with-sctp --with-openssl && \
+    ./build.sh --with-pcap --with-sctp && \
     mv sipp /usr/local/bin/ && \
     cd .. && rm -rf sipp
 
