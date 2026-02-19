@@ -10,6 +10,7 @@ RUN apk add --no-cache \
     gsl-static \
     help2man \
     libpcap-dev \
+    libpcap \
     make \
     ncurses-dev \
     ncurses-static \
@@ -21,17 +22,24 @@ WORKDIR /sipp
 
 RUN git clone https://github.com/SIPp/sipp.git . && \
     git submodule update --init && \
-    git config --global --add safe.directory /sipp && \
-    chmod +x build.sh && \
-    ./build.sh --none
+    git config --global --add safe.directory /sipp
+
+RUN cmake . \
+    -DUSE_PCAP=ON \
+    -DUSE_SSL=ON \
+    -DUSE_SCTP=ON \
+    -DUSE_GSL=ON \
+    -DBUILD_STATIC=ON \
+    -G Ninja && \
+    ninja
 
 FROM alpine:3.20
 
 RUN apk add --no-cache \
     libstdc++ \
-    ncurses-libs
+    ncurses-libs \
+    libpcap
 
 COPY --from=build /sipp/sipp /usr/local/bin/sipp
 
 ENTRYPOINT ["sipp"]
-
