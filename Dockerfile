@@ -19,19 +19,16 @@ RUN apk add --no-cache \
 
 WORKDIR /sipp
 
+# Clona il repo SIPp
 RUN git clone https://github.com/SIPp/sipp.git . && \
+    git submodule update --init && \
     git config --global --add safe.directory /sipp && \
-    cmake . -G Ninja \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DBUILD_STATIC=1 \
-        -DUSE_PCAP=1 \
-        -DUSE_GSL=1 \
-        -DUSE_SSL=1 \
-        -DUSE_SCTP=1 && \
-    ninja
+    chmod +x build.sh && \
+    ./build.sh --none
 
 FROM alpine:3.20
 
 COPY --from=build /sipp/sipp /usr/local/bin/sipp
 
 ENTRYPOINT ["sipp"]
+
