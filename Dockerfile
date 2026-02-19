@@ -16,6 +16,7 @@ RUN apk add --no-cache \
     ncurses-static \
     ninja \
     openssl-dev \
+    openssl-libs-static \
     lksctp-tools-dev
 
 WORKDIR /sipp
@@ -27,9 +28,9 @@ RUN git clone https://github.com/SIPp/sipp.git . && \
 RUN cmake . \
     -DUSE_PCAP=ON \
     -DUSE_SSL=ON \
-    -DUSE_SCTP=ON \
+    -DUSE_SCTP=OFF \
     -DUSE_GSL=ON \
-    -DBUILD_STATIC=ON \
+    -DBUILD_STATIC=OFF \
     -G Ninja && \
     ninja
 
@@ -38,7 +39,10 @@ FROM alpine:3.20
 RUN apk add --no-cache \
     libstdc++ \
     ncurses-libs \
-    libpcap
+    libpcap \
+    openssl \
+    gsl \
+    lksctp-tools
 
 COPY --from=build /sipp/sipp /usr/local/bin/sipp
 
