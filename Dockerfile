@@ -19,16 +19,20 @@ RUN apk add --no-cache \
 
 WORKDIR /sipp
 
-# Clona il repo SIPp
 RUN git clone https://github.com/SIPp/sipp.git . && \
     git submodule update --init && \
     git config --global --add safe.directory /sipp && \
     chmod +x build.sh && \
-    ./build.sh --none
+    ./build.sh --none && \
+    ninja
 
 FROM alpine:3.20
+
+# Librerie runtime necessarie a sipp (C++ + ncurses)
+RUN apk add --no-cache \
+    libstdc++ \
+    ncurses-libs
 
 COPY --from=build /sipp/sipp /usr/local/bin/sipp
 
 ENTRYPOINT ["sipp"]
-
