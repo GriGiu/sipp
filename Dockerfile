@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-# Maintainer
+# Maintainer - Update 19/02/2026
 LABEL maintainer="grillo.giuseppe@gmail.com"
 
 # Install dependencies
